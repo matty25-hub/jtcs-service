@@ -1,15 +1,58 @@
-<!-- index.html -->
-<!-- Use the base template, replacing PAGE_TITLE and PAGE_CONTENT -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="assets/style.css">
+  <meta charset="UTF-8">
+  <title>JTC Courier Services - Home</title>
+  <link rel="stylesheet" href="assets/style.css">
 </head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">JTC Services</div>
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="track.html">Track</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
 
-<title>JTC Services | Home</title>
+  <!-- Hero Slider -->
+  <div class="slider">
+    <div class="slide fade">
+      <h1>Welcome to JTC Services 🚚</h1>
+      <p>Fast, reliable, and secure deliveries worldwide.</p>
+      <a href="about.html" class="btn">Learn More</a>
+    </div>
+    <div class="slide fade">
+      <h1>Global Shipping 🌍</h1>
+      <p>Connecting you with seamless logistics solutions.</p>
+      <a href="services.html" class="btn">Our Services</a>
+    </div>
+    <div class="slide fade">
+      <h1>Real-time Tracking 📦</h1>
+      <p>Stay updated with your shipment anytime, anywhere.</p>
+      <a href="track.html" class="btn">Track Now</a>
+    </div>
+  </div>
 
-<main>
-  <h2>Welcome to JTC Services</h2>
-  <p>Fast, reliable, and secure courier services nationwide.</p>
-  <a href="about.html">
-        <button>Next ➡</button>
-  </a>
-</main>
+  <!-- Form Section -->
+  <section class="form-section">
+    <h2>Book a Shipment</h2>
+    <input type="text" id="name" placeholder="Sender Name">
+    <input type="email" id="email" placeholder="Recipient Email">
+    <button onclick="addUser()">Submit</button>
+
+    <h2>Shipments List</h2>
+    <ul id="usersList"></ul>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 JTC Courier Services. All rights reserved.</p>
+  </footer>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
