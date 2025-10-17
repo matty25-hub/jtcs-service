@@ -1,58 +1,383 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>JTC Courier Services - Home</title>
-  <link rel="stylesheet" href="assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JTC Services - Professional Courier & Logistics</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Navbar -->
-  <nav>
-    <div class="logo">JTC Services</div>
-    <ul>
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="track.html">Track</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-shipping-fast"></i>
+                <h2>JTC Services</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#tracking" class="nav-link">Track</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><button class="btn-primary" onclick="openBookingForm()" style="margin-left: 1rem;">
+                    <i class="fas fa-calendar-check"></i> Book Now
+                </button></li>
+            </ul>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
 
-  <!-- Hero Slider -->
-  <div class="slider">
-    <div class="slide fade">
-      <h1>Welcome to JTC Services 🚚</h1>
-      <p>Fast, reliable, and secure deliveries worldwide.</p>
-      <a href="about.html" class="btn">Learn More</a>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Fast & Reliable Courier Services</h1>
+                <p>Delivering your packages with speed, security, and precision across the globe. Trust JTC Services for all your logistics needs.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="openBookingForm()">
+                        <i class="fas fa-calendar-check"></i> Book a Pickup
+                    </button>
+                    <button class="btn-secondary" onclick="scrollToTracking()">
+                        <i class="fas fa-search-location"></i> Track Package
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Courier Delivery Service">
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBookingForm()">&times;</span>
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Book a Courier Pickup</h2>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="senderName">Sender Name</label>
+                    <input type="text" id="senderName" name="senderName" required>
+                </div>
+                <div class="form-group">
+                    <label for="senderPhone">Sender Phone</label>
+                    <input type="tel" id="senderPhone" name="senderPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="senderAddress">Pickup Address</label>
+                    <textarea id="senderAddress" name="senderAddress" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="receiverName">Receiver Name</label>
+                    <input type="text" id="receiverName" name="receiverName" required>
+                </div>
+                <div class="form-group">
+                    <label for="receiverPhone">Receiver Phone</label>
+                    <input type="tel" id="receiverPhone" name="receiverPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="receiverAddress">Delivery Address</label>
+                    <textarea id="receiverAddress" name="receiverAddress" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="packageType">Package Type</label>
+                    <select id="packageType" name="packageType" required>
+                        <option value="">Select Package Type</option>
+                        <option value="document">Documents</option>
+                        <option value="parcel">Parcel</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="fragile">Fragile Items</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="packageWeight">Weight (kg)</label>
+                    <input type="number" id="packageWeight" name="packageWeight" step="0.1" min="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="packageDescription">Package Description</label>
+                    <textarea id="packageDescription" name="packageDescription" placeholder="Describe the contents of your package..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+                    <i class="fas fa-paper-plane"></i> Book Pickup
+                </button>
+            </form>
+        </div>
     </div>
-    <div class="slide fade">
-      <h1>Global Shipping 🌍</h1>
-      <p>Connecting you with seamless logistics solutions.</p>
-      <a href="services.html" class="btn">Our Services</a>
+
+    <!-- Contact Form Modal - ADDED THIS MISSING MODAL -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeContactForm()">&times;</span>
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Contact Us</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="contactName">Your Name</label>
+                    <input type="text" id="contactName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail">Your Email</label>
+                    <input type="email" id="contactEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactPhone">Your Phone</label>
+                    <input type="tel" id="contactPhone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="contactMessage">Your Message</label>
+                    <textarea id="contactMessage" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
     </div>
-    <div class="slide fade">
-      <h1>Real-time Tracking 📦</h1>
-      <p>Stay updated with your shipment anytime, anywhere.</p>
-      <a href="track.html" class="btn">Track Now</a>
+
+    <!-- Tracking Section -->
+    <section id="tracking" class="tracking-section">
+        <div class="tracking-container">
+            <div class="section-header">
+                <h2>Track Your Package</h2>
+                <p>Enter your tracking number to check the real-time status of your shipment</p>
+            </div>
+            
+            <div class="tracking-form">
+                <input type="text" id="trackingNumber" placeholder="Enter tracking number (e.g., SC715220J5O2P3)" maxlength="20">
+                <button onclick="trackPackage()" class="track-btn">
+                    <i class="fas fa-search"></i>
+                    Track Package
+                </button>
+            </div>
+            
+            <div id="trackingResult">
+                <!-- Tracking results will appear here -->
+            </div>
+            
+            <div class="tracking-features">
+                <div class="feature-card">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h4>Real-time Tracking</h4>
+                    <p>Get live updates on your package location and estimated delivery time</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Location History</h4>
+                    <p>View complete tracking history with timestamps and locations</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bell"></i>
+                    <h4>Status Updates</h4>
+                    <p>Instant notifications for every status change in your delivery</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>We offer a comprehensive range of courier and logistics solutions</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-shipping-fast"></i>
+                    <h3>Same Day Delivery</h3>
+                    <p>Urgent deliveries within the same day across the city with real-time tracking</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-truck"></i>
+                    <h3>Next Day Delivery</h3>
+                    <p>Reliable next-day delivery service nationwide with guaranteed timelines</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>International Shipping</h3>
+                    <p>Global delivery services to over 200 countries with customs clearance</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-box"></i>
+                    <h3>Package Insurance</h3>
+                    <p>Full insurance coverage for valuable items with quick claim processing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>About JTC Services</h2>
+                <p>Your trusted partner in logistics and courier services since 2010</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Who We Are</h3>
+                    <p>JTC Services is a premier courier and logistics company dedicated to providing fast, reliable, and secure delivery solutions. With over a decade of experience in the industry, we have built a reputation for excellence and customer satisfaction.</p>
+                    
+                    <h3>Our Mission</h3>
+                    <p>To revolutionize the courier industry by providing innovative, efficient, and customer-centric logistics solutions that exceed expectations while maintaining the highest standards of reliability and security.</p>
+                    
+                    <h3>Our Vision</h3>
+                    <p>To be the leading courier service provider globally, recognized for our commitment to excellence, technological innovation, and sustainable business practices.</p>
+
+                    <div class="values-grid">
+                        <div class="value-item">
+                            <i class="fas fa-bullseye"></i>
+                            <h4>Reliability</h4>
+                            <p>99% on-time delivery rate with real-time tracking</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Security</h4>
+                            <p>Advanced security measures for your valuable packages</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-headset"></i>
+                            <h4>Support</h4>
+                            <p>24/7 customer support for all your queries</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-leaf"></i>
+                            <h4>Sustainability</h4>
+                            <p>Eco-friendly delivery options and practices</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1565689228864-2b5c2a3aac7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="JTC Services Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>50K+</h3>
+                    <p>Deliveries Completed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>150+</h3>
+                    <p>Cities Covered</p>
+                </div>
+                <div class="stat-item">
+                    <h3>99%</h3>
+                    <p>On-Time Delivery Rate</p>
+                </div>
+                <div class="stat-item">
+                    <h3>24/7</h3>
+                    <p>Customer Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Contact Us</h2>
+            <p>Get in touch with our team for any inquiries or support</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3>Phone</h3>
+                        <p>+1 (555) 123-4567</p>
+                        <p>+1 (555) 987-6543</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p>info@jtcservices.com</p>
+                        <p>support@jtcservices.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>Address</h3>
+                        <p>123 Logistics Street, Suite 100</p>
+                        <p>City, State 12345</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h3>Business Hours</h3>
+                        <p>Monday - Friday: 8:00 AM - 8:00 PM</p>
+                        <p>Saturday: 9:00 AM - 5:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            <!-- FIXED: Changed ID to avoid conflict with modal form -->
+            <form class="contact-form" id="contactPageForm">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="phone" placeholder="Your Phone">
+                </div>
+                <div class="form-group">
+                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
     </div>
-  </div>
+</section>
 
-  <!-- Form Section -->
-  <section class="form-section">
-    <h2>Book a Shipment</h2>
-    <input type="text" id="name" placeholder="Sender Name">
-    <input type="email" id="email" placeholder="Recipient Email">
-    <button onclick="addUser()">Submit</button>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>JTC Services</h2>
+                    <p>Your trusted partner for reliable and efficient courier services. We deliver your packages with care and precision.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#tracking">Track Package</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@jtcservices.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Logistics Street, City, State 12345</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 JTC Services. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ef4444;"></i> for excellence</p>
+            </div>
+        </div>
+    </footer>
 
-    <h2>Shipments List</h2>
-    <ul id="usersList"></ul>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 JTC Courier Services. All rights reserved.</p>
-  </footer>
-
-  <script src="assets/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
