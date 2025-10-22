@@ -8,26 +8,21 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware - Fixed CORS for production
+// ✅ FIXED CORS CONFIGURATION
 app.use(cors({
     origin: [
+        'https://subtle-vacherin-e66921.netlify.app', // Your Netlify frontend
         'http://localhost:8000', 
-        'http://127.0.0.1:8000', 
-        'http://localhost:3000', 
-        'http://127.0.0.1:3000',
-        'https://jtcs-service-9.onrender.com'  // ✅ ADD YOUR PRODUCTION URL
+        'http://127.0.0.1:8000',
+        'http://localhost:3000'
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
-// Handle preflight requests
+// ✅ Handle preflight requests properly
 app.options('*', cors());
-
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true }));
-
 // ✅ ADD THIS: Serve static files from frontend
 app.use(express.static(path.join(__dirname, '../frontend')));
 
@@ -114,3 +109,4 @@ app.listen(PORT, () => {
     console.log(`❤️ Health Check: http://localhost:${PORT}/api/health`);
 
 });
+
