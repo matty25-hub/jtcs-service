@@ -1,5 +1,5 @@
-// API Base URL
-const API_BASE_URL = 'http://localhost:3000/api';
+// API Base URL - FIXED FOR PRODUCTION
+const API_BASE_URL = '/api';  // ← CHANGED THIS LINE
 
 console.log('✅ script.js loaded successfully');
 console.log('API Base URL:', API_BASE_URL);

@@ -2,14 +2,21 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware - Fixed CORS
+// Middleware - Fixed CORS for production
 app.use(cors({
-    origin: ['http://localhost:8000', 'http://127.0.0.1:8000', 'http://localhost:3000', 'http://127.0.0.1:3000'],
+    origin: [
+        'http://localhost:8000', 
+        'http://127.0.0.1:8000', 
+        'http://localhost:3000', 
+        'http://127.0.0.1:3000',
+        'https://jtcs-service-9.onrender.com'  // ✅ ADD YOUR PRODUCTION URL
+    ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
@@ -20,6 +27,25 @@ app.options('*', cors());
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// ✅ ADD THIS: Serve static files from frontend
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// ✅ ADD THIS: Essential root route for Render
+app.get('/', (req, res) => {
+    res.json({
+        message: 'JTCS Service is running! 🚀',
+        status: 'success',
+        database: 'Connected ✅',
+        timestamp: new Date().toISOString(),
+        routes: [
+            '/api/health',
+            '/api/test',
+            '/api/bookings',
+            '/api/contact'
+        ]
+    });
+});
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/jtcservices')
@@ -32,7 +58,6 @@ app.get('/api/test', (req, res) => {
 });
 
 // Debug: Check what files exist in routes folder
-const fs = require('fs');
 const routesPath = path.join(__dirname, 'routes');
 
 console.log('=== CHECKING ROUTES FOLDER ===');
@@ -76,10 +101,15 @@ app.get('/api/health', (req, res) => {
     });
 });
 
+// ✅ ADD THIS: Catch-all route to serve frontend - MUST BE LAST
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
+
 app.listen(PORT, () => {
     console.log(`🚀 Server is running on port ${PORT}`);
     console.log(`📍 Local: http://localhost:${PORT}`);
-    console.log(`🌐 API Health: http://localhost:${PORT}/api/health`);
+    console.log(`🌐 Production: https://jtcs-service-9.onrender.com`);
     console.log(`📊 Test Route: http://localhost:${PORT}/api/test`);
-    console.log(`🎯 Frontend should connect from: http://localhost:8000`);
+    console.log(`❤️ Health Check: http://localhost:${PORT}/api/health`);
 });
