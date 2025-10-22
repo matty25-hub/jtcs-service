@@ -112,4 +112,5 @@ app.listen(PORT, () => {
     console.log(`🌐 Production: https://jtcs-service-9.onrender.com`);
     console.log(`📊 Test Route: http://localhost:${PORT}/api/test`);
     console.log(`❤️ Health Check: http://localhost:${PORT}/api/health`);
+
 });
